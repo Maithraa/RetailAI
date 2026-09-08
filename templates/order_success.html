@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Successful | RetailAI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f9f7;
+            color: #09251f;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-box {
+
+            width: 90%;
+            max-width: 600px;
+
+            background: white;
+
+            border-radius: 24px;
+
+            padding: 50px 40px;
+
+            text-align: center;
+
+            box-shadow: 0 15px 45px rgba(0, 50, 40, 0.12);
+        }
+
+        .success-icon {
+
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 25px;
+
+            border-radius: 50%;
+
+            background: #d9f7e8;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 48px;
+        }
+
+        h1 {
+
+            font-size: 32px;
+
+            color: #062a23;
+
+            margin-bottom: 12px;
+        }
+
+        .message {
+
+            color: #657873;
+
+            font-size: 16px;
+
+            margin-bottom: 30px;
+        }
+
+        .order-details {
+
+            background: #f5f9f7;
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+            margin-bottom: 30px;
+
+            text-align: left;
+        }
+
+        .detail {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 10px 0;
+
+            border-bottom: 1px solid #dfe9e5;
+        }
+
+        .detail:last-child {
+
+            border-bottom: none;
+        }
+
+        .detail span:first-child {
+
+            color: #657873;
+
+            font-weight: 600;
+        }
+
+        .detail span:last-child {
+
+            color: #062a23;
+
+            font-weight: bold;
+        }
+
+        .total {
+
+            color: #16a56d !important;
+
+            font-size: 20px;
+        }
+
+        .buttons {
+
+            display: flex;
+
+            gap: 12px;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+
+            text-decoration: none;
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .home-btn {
+
+            background: #062a23;
+
+            color: white;
+        }
+
+        .home-btn:hover {
+
+            background: #0b4b3d;
+        }
+
+        .orders-btn {
+
+            background: #68e0a5;
+
+            color: #062a23;
+        }
+
+        .orders-btn:hover {
+
+            background: #8bf0bd;
+        }
+
+        .brand {
+
+            margin-top: 30px;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            color: #062a23;
+        }
+
+        .brand span {
+
+            color: #16a56d;
+        }
+
+        @media (max-width: 500px) {
+
+            .success-box {
+
+                padding: 35px 20px;
+            }
+
+            h1 {
+
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="success-box">
+
+
+    <div class="success-icon">
+
+        ✓
+
+    </div>
+
+
+    <h1>
+
+        Order Placed Successfully!
+
+    </h1>
+
+
+    <p class="message">
+
+        Thank you for shopping with RetailAI.
+        Your order has been placed successfully.
+
+    </p>
+
+
+    <div class="order-details">
+
+
+        <div class="detail">
+
+            <span>
+                Order ID
+            </span>
+
+            <span>
+                #{{ order_id }}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <span>
+                Customer
+            </span>
+
+            <span>
+                {{ user_name or "Customer" }}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <span>
+                Order Status
+            </span>
+
+            <span>
+                Confirmed
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <span>
+                Total Amount
+            </span>
+
+            <span class="total">
+                ₹{{ "%.2f"|format(total) }}
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="buttons">
+
+
+        <a href="{{ url_for('home') }}"
+           class="btn home-btn">
+
+            ← Continue Shopping
+
+        </a>
+
+
+        <a href="{{ url_for('orders') }}"
+           class="btn orders-btn">
+
+            View My Orders
+
+        </a>
+
+
+    </div>
+
+
+    <div class="brand">
+
+        Retail<span>AI</span>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

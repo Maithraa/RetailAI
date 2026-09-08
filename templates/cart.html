@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | RetailAI</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .cart-page {
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .cart-title {
+            margin-bottom: 30px;
+        }
+        .cart-title p {
+            color: #1f9d70;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .cart-title h1 {
+            font-size: 36px;
+            margin: 5px 0;
+        }
+        .cart-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .cart-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .cart-emoji {
+            width: 80px;
+            height: 80px;
+            background: #f1f5f3;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .cart-info {
+            flex: 1;
+        }
+
+        .cart-info h3 {
+            margin: 0 0 8px;
+        }
+
+        .cart-price {
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quantity a {
+            text-decoration: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #0b2922;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity span {
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            text-decoration: none;
+            color: #e53935;
+            font-size: 14px;
+        }
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            height: fit-content;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .summary h2 {
+            margin-top: 0;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .summary-total {
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #0b2922;
+            color: white;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .clear-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #e53935;
+            margin-top: 15px;
+        }
+
+        .empty-cart {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        .empty-cart .emoji {
+            font-size: 60px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 20px;
+            background: #72dfa9;
+            color: #0b2922;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 800px) {
+
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-page {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Retail<span>AI</span>
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#categories">
+                Categories
+            </a>
+
+            <a href="/#trending">
+                Trending
+            </a>
+
+            <a href="/#ai">
+                AI Picks
+            </a>
+
+
+            {% if user_name %}
+
+                <span class="user-name">
+                    Hello, {{ user_name }}
+                </span>
+
+                <a href="/logout">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="/login">
+                    Login / Sign Up
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="nav-right">
+
+            <div class="search">
+
+                🔍
+
+                <input
+                    type="text"
+                    placeholder="Search products..."
+                >
+
+            </div>
+
+
+            <a href="/cart"
+               class="cart-btn">
+
+                🛒
+
+                <span>
+                    {{ cart_items|length }}
+                </span>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= CART PAGE ================= -->
+
+    <section class="cart-page">
+
+
+        <div class="cart-title">
+
+            <p>
+                RETAILAI STORE
+            </p>
+
+            <h1>
+                Your Shopping Cart 🛒
+            </h1>
+
+            <span>
+                Review your selected products
+            </span>
+
+        </div>
+
+
+
+        {% if cart_items %}
+
+
+        <div class="cart-container">
+
+
+            <!-- ================= CART ITEMS ================= -->
+
+            <div class="cart-items">
+
+
+                {% for item in cart_items %}
+
+
+                <div class="cart-item">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="cart-emoji">
+
+                        {{ item.emoji }}
+
+                    </div>
+
+
+
+                    <!-- PRODUCT INFO -->
+
+                    <div class="cart-info">
+
+                        <h3>
+                            {{ item.name }}
+                        </h3>
+
+
+                        <div class="cart-price">
+
+                            ₹{{ item.price }}
+
+                        </div>
+
+
+
+                        <!-- QUANTITY -->
+
+                        <div class="quantity">
+
+                            <a href="/decrease/{{ loop.index0 }}">
+                                −
+                            </a>
+
+
+                            <span>
+                                {{ item.quantity }}
+                            </span>
+
+
+                            <a href="/increase/{{ loop.index0 }}">
+                                +
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ITEM TOTAL -->
+
+                    <strong>
+
+                        ₹{{ item.price * item.quantity }}
+
+                    </strong>
+
+
+
+                    <!-- REMOVE -->
+
+                    <a
+                        href="/remove/{{ loop.index0 }}"
+                        class="remove-btn"
+                    >
+
+                        Remove
+
+                    </a>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+
+            <!-- ================= SUMMARY ================= -->
+
+            <div class="summary">
+
+
+                <h2>
+                    Order Summary
+                </h2>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Items
+                    </span>
+
+                    <span>
+                        {{ cart_items|length }}
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Delivery
+                    </span>
+
+                    <span>
+                        FREE
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span>
+                        ₹{{ total }}
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="/checkout"
+                    class="checkout-btn"
+                >
+
+                    Proceed to Checkout →
+
+                </a>
+
+
+                <a
+                    href="/clear_cart"
+                    class="clear-btn"
+                >
+
+                    Clear Cart
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- ================= EMPTY CART ================= -->
+
+        <div class="empty-cart">
+
+            <div class="emoji">
+                🛒
+            </div>
+
+            <h2>
+                Your cart is empty
+            </h2>
+
+            <p>
+                Looks like you haven't added anything yet.
+            </p>
+
+
+            <a
+                href="/"
+                class="shop-btn"
+            >
+
+                ← Continue Shopping
+
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RetailAI | Products</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <div class="logo">
+        Retail<span>AI</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/#categories">Categories</a>
+        <a href="/#trending">Trending</a>
+        <a href="/#ai">AI Picks</a>
+    </div>
+
+    <div class="nav-right">
+
+        <div class="search">
+            🔍
+            <input type="text" placeholder="Search products...">
+        </div>
+
+        <a href="/cart" class="cart-btn">
+            🛒 <span>0</span>
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- PAGE HEADER -->
+
+<section class="products-header">
+
+    <p>RETAILAI STORE</p>
+
+    <h1>All Products 🛍️</h1>
+
+    <span>
+        Fresh products and daily essentials from your local store.
+    </span>
+
+</section>
+
+
+<!-- CATEGORY FILTER -->
+
+<div class="filter-bar">
+
+    <button>All</button>
+    <button>🍎 Fruits</button>
+    <button>🥦 Vegetables</button>
+    <button>🍫 Chocolates</button>
+    <button>🥤 Drinks</button>
+    <button>🍿 Snacks</button>
+    <button>🏠 Household</button>
+
+</div>
+
+
+<!-- PRODUCTS -->
+
+<section class="products-section">
+
+    <div class="product-grid">
+
+
+        <!-- APPLE -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+                🍎
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Fruits
+                </span>
+
+                <h3>Fresh Apple</h3>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <div class="product-bottom">
+
+                    <strong>₹120</strong>
+
+                    <button onclick="addToCart()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BANANA -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+                🍌
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Fruits
+                </span>
+
+                <h3>Fresh Banana</h3>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <div class="product-bottom">
+
+                    <strong>₹60</strong>
+
+                    <button onclick="addToCart()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOMATO -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+                🍅
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Vegetables
+                </span>
+
+                <h3>Fresh Tomato</h3>
+
+                <div class="rating">
+                    ★★★★☆
+                </div>
+
+                <div class="product-bottom">
+
+                    <strong>₹40</strong>
+
+                    <button onclick="addToCart()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CHOCOLATE -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+                🍫
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Chocolates
+                </span>
+
+                <h3>Milk Chocolate</h3>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <div class="product-bottom">
+
+                    <strong>₹50</strong>
+
+                    <button onclick="addToCart()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DRINK -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+                🥤
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Drinks
+                </span>
+
+                <h3>Fresh Fruit Drink</h3>
+
+                <div class="rating">
+                    ★★★★☆
+                </div>
+
+                <div class="product-bottom">
+
+                    <strong>₹40</strong>
+
+                    <button onclick="addToCart()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SNACK -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+                🍿
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Snacks
+                </span>
+
+                <h3>Classic Popcorn</h3>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <div class="product-bottom">
+
+                    <strong>₹30</strong>
+
+                    <button onclick="addToCart()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOUSEHOLD -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+                🧹
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Household
+                </span>
+
+                <h3>Cleaning Essentials</h3>
+
+                <div class="rating">
+                    ★★★★☆
+                </div>
+
+                <div class="product-bottom">
+
+                    <strong>₹90</strong>
+
+                    <button onclick="addToCart()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BISCUITS -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+                🍪
+            </div>
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Snacks
+                </span>
+
+                <h3>Chocolate Biscuits</h3>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <div class="product-bottom">
+
+                    <strong>₹35</strong>
+
+                    <button onclick="addToCart()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-logo">
+        Retail<span>AI</span>
+    </div>
+
+    <p>
+        Smart Retail • Smart Shopping • Better Living
+    </p>
+
+    <p>
+        © 2026 RetailAI
+    </p>
+
+</footer>
+
+
+<script>
+
+let cartCount = 0;
+
+function addToCart() {
+
+    cartCount++;
+
+    alert("Product added to cart 🛒");
+
+}
+
+</script>
+
+</body>
+</html>

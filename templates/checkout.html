@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | RetailAI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .checkout-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px;
+        }
+
+        .checkout-title {
+            margin-bottom: 30px;
+        }
+
+        .checkout-title p {
+            color: #1f9d70;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .checkout-title h1 {
+            font-size: 36px;
+            margin: 5px 0;
+        }
+
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        .checkout-box,
+        .order-summary {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .checkout-box h2,
+        .order-summary h2 {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            border: none;
+            background: #0b2922;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .back-cart {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0b2922;
+        }
+
+        @media (max-width: 800px) {
+
+            .checkout-page {
+                padding: 25px;
+            }
+
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Retail<span>AI</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#categories">
+                Categories
+            </a>
+
+            <a href="/cart">
+                Cart 🛒
+            </a>
+
+            {% if user_name %}
+
+                <span class="user-name">
+                    Hello, {{ user_name }}
+                </span>
+
+                <a href="/logout">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="/login">
+                    Login / Sign Up
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= CHECKOUT ================= -->
+
+    <section class="checkout-page">
+
+
+        <div class="checkout-title">
+
+            <p>
+                RETAILAI STORE
+            </p>
+
+            <h1>
+                Checkout
+            </h1>
+
+            <span>
+                Complete your delivery details
+            </span>
+
+        </div>
+
+
+
+        <div class="checkout-container">
+
+
+            <!-- ================= CUSTOMER DETAILS ================= -->
+
+            <div class="checkout-box">
+
+                <h2>
+                    Delivery Details 📦
+                </h2>
+
+
+                <form action="/place_order"
+                      method="POST">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="phone"
+                            placeholder="Enter phone number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Delivery Address
+                        </label>
+
+                        <textarea
+                            name="address"
+                            placeholder="Enter your delivery address"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Payment Method
+                        </label>
+
+                        <input
+                            type="text"
+                            value="Cash on Delivery"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="place-order-btn"
+                    >
+
+                        Place Order ✓
+
+                    </button>
+
+
+                </form>
+
+
+                <a href="/cart"
+                   class="back-cart">
+
+                    ← Back to Cart
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ================= ORDER SUMMARY ================= -->
+
+            <div class="order-summary">
+
+                <h2>
+                    Order Summary
+                </h2>
+
+
+                {% for item in cart_items %}
+
+                <div class="order-item">
+
+                    <span>
+
+                        {{ item.emoji }}
+                        {{ item.name }}
+                        × {{ item.quantity }}
+
+                    </span>
+
+                    <strong>
+
+                        ₹{{ item.price * item.quantity }}
+
+                    </strong>
+
+                </div>
+
+                {% endfor %}
+
+
+                <div class="total-row">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span>
+                        ₹{{ total }}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</body>
+
+</html>
