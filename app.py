@@ -729,41 +729,14 @@ def login():
             # LOGIN SUCCESS
             # =================================================
 
-            if user:
+           if user:
 
-                # Save login session
-                session["user_id"] = user["id"]
+    # Save login session
+    session["user_id"] = user["id"]
+    session["user_name"] = user["name"]
+    session["user_email"] = user["email"]
 
-                session["user_name"] = user["name"]
-
-                session["user_email"] = user["email"]
-
-                # ------------------------------------------------
-                # LOGIN EMAIL
-                # ------------------------------------------------
-
-                send_email(
-
-                    user["email"],
-
-                    "RetailAI - Login Successful",
-
-                    f"""Hello {user["name"]},
-
-You have successfully logged in to RetailAI.
-
-Login Email: {user["email"]}
-
-Your RetailAI account is now active.
-
-You can continue shopping and place your orders.
-
-Thank you for using RetailAI.
-
-Regards,
-RetailAI Team
-"""
-                )
+    return redirect(url_for("dashboard"))
 
                 # =================================================
                 # IMPORTANT CHANGE
