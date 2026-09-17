@@ -15,11 +15,8 @@ app.secret_key = "retailai_secret_key"
 # EMAIL CONFIGURATION
 # ============================================================
 
-SENDER_EMAIL = "maithraa66@gmail.com"
-
-# Put your NEW Gmail App Password here
-# Remove spaces from the App Password
-GMAIL_APP_PASSWORD = "qprn aeoo ftvb uzbh"
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
+GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD")
 
 
 def send_email(receiver_email, subject, body):
